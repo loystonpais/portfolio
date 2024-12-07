@@ -1,4 +1,5 @@
-import { Progress } from "@/components/ui/progress";
+import {Progress} from "@/components/ui/progress";
+
 
 const Loading = ()=> {
     return (
