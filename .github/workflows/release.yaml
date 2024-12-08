@@ -12,7 +12,7 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Install necessary dependencies
       - name: Install dependencies
@@ -26,29 +26,12 @@ jobs:
           npm install --force
           npm run build
 
-      # Compress the output binary
-      - name: Compress binary
+      # Compress the files
+      - name: Compress the files
         run: |
           tar -czf release.tar.gz .next public package.json
 
-
-      - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release.tar.gz
-          asset_name: release.tar.gz
-          asset_content_type: application/gzip
+          files: release.tar.gz
