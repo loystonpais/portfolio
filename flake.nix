@@ -37,7 +37,7 @@
           in
           {
             enable = true;
-            path = [ pkgs.nodePackages_latest.pnpm ];
+            path = [ pkgs.nodePackages_latest.pnpm "/run/current-system/sw/" ];
 
             serviceConfig = {
               ExecStart = 
@@ -45,7 +45,6 @@
               Restart = "on-failure";
               TimeoutStartSec = 5;
               RestartSec = 2;
-              WorkingDirectory = "${pkg}/lib/node_modules/portfolio/";
             };
 
             after = [ "network.target" ];
