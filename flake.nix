@@ -40,7 +40,7 @@
 
             serviceConfig = {
               ExecStart = 
-                "${pkg}/bin/${name} -p ${builtins.toString config.programs.portfolio-website.port}";
+                "${pkgs.bash}/bin/bash  ${pkg}/bin/${name} -p ${builtins.toString config.programs.portfolio-website.port}";
               Restart = "on-failure";
               TimeoutStartSec = 5;
               RestartSec = 2;
