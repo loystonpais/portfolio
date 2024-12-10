@@ -37,6 +37,7 @@
           in
           {
             enable = true;
+            path = [ pkgs.nodePackages_latest.pnpm ];
 
             serviceConfig = {
               ExecStart = 
