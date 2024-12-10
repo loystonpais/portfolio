@@ -45,8 +45,10 @@
               Restart = "on-failure";
               TimeoutStartSec = 5;
               RestartSec = 2;
+              WorkingDirectory = "${pkg}/lib/node_modules/portfolio/";
             };
 
+            after = [ "network.target" ];
             wantedBy = [ "multi-user.target" ];
 
           };
