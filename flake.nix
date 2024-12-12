@@ -18,7 +18,7 @@
       });
 
       nixosModules.default = { config, lib, pkgs, ... }: {
-        options.programs = {
+        options.services = {
           portfolio-website = {
             enable = lib.mkEnableOption "enables portfolio site";
             port = lib.mkOption {
@@ -29,7 +29,7 @@
           };
         };
 
-        config = lib.mkIf config.programs.portfolio-website.enable {
+        config = lib.mkIf config.services.portfolio-website.enable {
           systemd.services.portfolio-website = 
           let 
             pkg = pkgs.callPackage ./default.nix { inherit pkgs; };
@@ -41,7 +41,7 @@
 
             serviceConfig = {
               ExecStart = 
-                "${pkgs.bash}/bin/bash  ${pkg}/bin/${name} -p ${builtins.toString config.programs.portfolio-website.port}";
+                "${pkgs.bash}/bin/bash  ${pkg}/bin/${name} -p ${builtins.toString config.services.portfolio-website.port}";
               Restart = "on-failure";
               TimeoutStartSec = 5;
               RestartSec = 2;
